@@ -20,24 +20,9 @@ function NewImput(){
     let numformat = formatnumber(valor,"CLP");
     valueInput.value= "";
     valueInput.placeholder= numformat;
-    // if(!isNaN(valor)){
-    //     value = valor;
-    //     let FormatValue = valor.toLocaleString("es",{
-    //         style:"currency",
-    //         currency: "CLP",
-    //         minimumFractionDigits: 0,
-    //         maximumFractionDigits: 0,
-    //     });
-    // valueInput.value= "";
-    // valueInput.placeholder= FormatValue;
-    // }
-    // else{
-    //     valueInput.placeholder = 0 + " CLP";
-    // }
 }
 
 async function CalValue(){
-    // value =parseFloat(document.getElementById("ValueInput").placeholder);
     console.log(value)
     if(value == 0){
         alert("Debe ingresar un valor mayor a 0 CLP")
