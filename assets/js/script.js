@@ -49,17 +49,26 @@ async function CalValue(){
 }
 
 async function GetDat(){
-    const res = await fetch(UrlApi);
-    const datas = await res.json()
-    return datas
+    try{
+        const res = await fetch(UrlApi);
+        const datas = await res.json()
+        return datas
+    }
+    catch(e){
+        alert(e.message);
+    }
     }
 async function GetDatGraf(){
+    try{
     const selectnow = document.getElementById("Select").value;
     const Urlapidata = UrlApi+selectnow;
     const res = await fetch(Urlapidata);
     const datas = await res.json();
     console.log(datas);
     return datas;
+    }catch(e){
+        alert(e.message);
+    }
 }
 
 async function ConfigGraf(datas){
