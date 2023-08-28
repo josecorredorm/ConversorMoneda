@@ -55,7 +55,7 @@ async function GetDat(){
         return datas
     }
     catch(e){
-        alert(e.message);
+        alert("Error al cargar los datos de la api: " + e.message);
     }
     }
 async function GetDatGraf(){
@@ -67,7 +67,7 @@ async function GetDatGraf(){
     console.log(datas);
     return datas;
     }catch(e){
-        alert(e.message);
+        alert("Error al cargar los datos de la api: " + e.message);
     }
 }
 
