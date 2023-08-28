@@ -5,6 +5,7 @@ let valueInput = document.getElementById("ValueInput");
 let select = document.getElementById("Select");
 let UrlApi = "https://mindicador.cl/api/";
 let value =0;
+let chart ;
 calculate.addEventListener("click",()=>CalValue());
 
 valueInput.addEventListener("blur", ()=>NewImput());
@@ -59,8 +60,7 @@ async function CalValue(){
         total.innerHTML = formatnumber(result,"USD") ;
         break;
     }
-    // vtoday.innerHTML = valormoneda;
-    // total.innerHTML = result.toFixed(2);
+    RenderGraf();
 }
 
 async function GetDat(){
@@ -68,6 +68,50 @@ async function GetDat(){
     const datas = await res.json()
     return datas
     }
+async function GetDatGraf(){
+    const selectnow = document.getElementById("Select").value;
+    const Urlapidata = UrlApi+selectnow;
+    const res = await fetch(Urlapidata);
+    const datas = await res.json();
+    console.log(datas);
+    return datas;
+}
+
+async function ConfigGraf(datas){
+    const tipodegraf = "line";
+    const titulo = "Valor de la moneda";
+    const colorlinea = "red";
+    let label =[];
+    let DataGraf =[];
+    for (let data in datas.serie){
+        let DateArray = (datas.serie[data].fecha).substring(0, 10);
+        label.push(DateArray.replace("-", "/"));
+        let valuedata = datas.serie[data].valor.toString();
+        DataGraf.push(valuedata.replace(",", "."));
+    };
+    const config = {
+        type: tipodegraf,
+        data: {
+            labels: label,
+            datasets: [{
+                    label: titulo,
+                    backgroundColor: colorlinea,
+                    data: DataGraf
+                }]
+        }
+    };
+    console.log(config)
+    return config;
+}
+async function RenderGraf(){
+    const datas = await GetDatGraf();
+    const config = await ConfigGraf(datas);
+    const chartDOM = document.getElementById("myChart");
+    if (chart) {
+        chart.destroy();
+    }
+    chart = new Chart(chartDOM, config);
+}
 
 function formatnumber(number,cod){
     if(!isNaN(number)){
